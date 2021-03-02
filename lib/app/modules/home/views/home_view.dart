@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 //import 'package:google_maps_flutter/google_maps_flutter.dart';
 import "package:latlong/latlong.dart";
 import 'package:get/get.dart';
+import 'package:wake_app_2_0/app/modules/widgets/bottom_sheet_widget.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -66,6 +67,12 @@ class HomeView extends GetView<HomeController> {
               child: Center(child: Icon(Icons.minimize_sharp)),
               onPressed: () {},
             ),
+          ),
+          Positioned(
+            bottom: 40,
+            left: 35,
+            right: 30,
+            child: BottomAnimatedContainer(),
           ),
         ],
       ),
