@@ -15,30 +15,32 @@ class HomeView extends GetView<HomeController> {
       //floatingActionButton: SideBarCustom(),
       body: Stack(
         children: <Widget>[
-          FlutterMap(
-            options: MapOptions(
-              center: LatLng(-25.3389, -57.5210),
-              zoom: 13.0,
-            ),
-            layers: [
-              TileLayerOptions(
-                  urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: ['a', 'b', 'c']),
-              MarkerLayerOptions(
-                markers: [
-                  Marker(
-                    width: 30.0,
-                    height: 30.0,
-                    point: LatLng(51.5, -0.09),
-                    builder: (ctx) => Container(
-                      child: FlutterLogo(),
-                    ),
+          Obx(() => FlutterMap(
+                mapController: controller.mapController,
+                options: MapOptions(
+                  center: LatLng(-25.3389, -57.5210),
+                  zoom: 13.0,
+                ),
+                layers: [
+                  TileLayerOptions(
+                      urlTemplate:
+                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                      subdomains: ['a', 'b', 'c']),
+                  MarkerLayerOptions(
+                    markers: [
+                      controller.myMarker.value,
+                      Marker(
+                        width: 30.0,
+                        height: 30.0,
+                        point: LatLng(-25.3389, -57.5210),
+                        builder: (ctx) => Container(
+                          child: Icon(Icons.accessibility),
+                        ),
+                      )
+                    ],
                   ),
                 ],
-              ),
-            ],
-          ),
+              )),
 
           /*Obx(
             () => Visibility(

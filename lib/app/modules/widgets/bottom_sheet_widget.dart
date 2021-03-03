@@ -8,7 +8,7 @@ class BottomAnimatedContainer extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => AnimatedContainer(
-        // width: controller.selectedBottom?  :,
+        width: controller.selectedBottom.value ? 50 : 180,
         duration: Duration(seconds: 2),
         curve: Curves.fastOutSlowIn,
         height: controller.selectedBottom.value ? 50 : 180,
@@ -23,7 +23,7 @@ class BottomAnimatedContainer extends GetView<HomeController> {
           FloatingActionButton(
             heroTag: 6,
             onPressed: () {
-              print("cambiando" + controller.selectedBottom.value.toString());
+              // print("cambiando" + controller.selectedBottom.value.toString());
               controller.selectedBottom.value =
                   !controller.selectedBottom.value;
             },
