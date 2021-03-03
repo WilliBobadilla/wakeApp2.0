@@ -55,7 +55,7 @@ class HomeView extends GetView<HomeController> {
             ),
           ),*/
           Positioned(
-            bottom: 40,
+            bottom: 110,
             right: 20,
             child: FloatingActionButton(
               child: Center(child: Icon(Icons.add)),
@@ -65,7 +65,7 @@ class HomeView extends GetView<HomeController> {
             ),
           ),
           Positioned(
-            bottom: 110,
+            bottom: 40,
             right: 20,
             child: FloatingActionButton(
               child: Center(child: Icon(Icons.minimize_sharp)),
