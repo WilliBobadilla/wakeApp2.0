@@ -12,6 +12,8 @@ class HomeController extends GetxController {
   StreamSubscription _streamSubscription;
   loc.Location _tracker = loc.Location();
   MapController mapController = MapController();
+  LatLng actualPosition = LatLng(0, 0);
+  double actualZoom = 15;
 
   @override
   void onInit() async {
@@ -42,6 +44,7 @@ class HomeController extends GetxController {
     try {
       loc.LocationData location = await _tracker.getLocation();
       updateMyPositionMarker(location);
+      actualPosition = LatLng(location.latitude, location.longitude);
       print("updating");
       if (_streamSubscription != null) {
         _streamSubscription.cancel();
@@ -72,10 +75,20 @@ class HomeController extends GetxController {
     }
   }
 
-  Future<void> centerView(loc.LocationData locationData) async {
+  void centerView(loc.LocationData locationData) {
     LatLng center = LatLng(locationData.latitude, locationData.longitude);
-    double zoom = 15;
     double degree = 0;
-    mapController.moveAndRotate(center, zoom, degree);
+    mapController.moveAndRotate(center, actualZoom, degree);
+  }
+
+  ///input: String mode, it can be in, out
+  void zoom({String mode}) {
+    if (mode == "out" && actualZoom > 5) {
+      actualZoom--;
+    } else if (mode == "in" && actualZoom < 18) {
+      actualZoom++;
+    }
+    double degree = 0;
+    mapController.moveAndRotate(actualPosition, actualZoom, degree);
   }
 }
