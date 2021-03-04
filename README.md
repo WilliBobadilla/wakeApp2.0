@@ -13,6 +13,11 @@ La primera version de la app vio la luz hace un tiempo atras, se puede encontrar
 
 ## Funcionamiento y uso :wrench:
 
+1. Setear la posicion de llegada con el boton **elegir destino**
+2. Arrastrar hasta donde queramos ir, al fijar presionar el boton **fijar destino**
+3. Setear a cuantos metros antes quiere que la app nos avise cuando estamos cerca de la parada, en metros, por defecto esta a 4 cuadras antes(400metros aproximadamente)
+4. Disfrutar el viaje y esperar que la app te avise cuando estas cerca :smile:
+
 ## Screenshoots :iphone:
 
 <p float="left">
