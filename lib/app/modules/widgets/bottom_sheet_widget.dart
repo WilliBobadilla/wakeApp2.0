@@ -48,22 +48,22 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                       height: 50,
                       width: cardsWidth,
                       child: GestureDetector(
-                          // onTap: controller.enableMarkerDestination,
+                          onTap: controller.enableMarkerDestination,
                           //let's enable our marker
                           child: Card(
-                        elevation: 3,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Elegir Destino"),
-                            Icon(
-                              Icons.place,
-                              color: Get.theme.primaryColor,
+                            elevation: 3,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("Elegir Destino"),
+                                Icon(
+                                  Icons.place,
+                                  color: Get.theme.primaryColor,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        /*Obx(() => controller.destinationWidget())*/
-                      ))),
+                            /*Obx(() => controller.destinationWidget())*/
+                          ))),
                   Container(
                       height: 50,
                       width: cardsWidth,

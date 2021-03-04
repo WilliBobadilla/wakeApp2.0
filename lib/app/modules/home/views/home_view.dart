@@ -18,6 +18,19 @@ class HomeView extends GetView<HomeController> {
           Obx(() => FlutterMap(
                 mapController: controller.mapController,
                 options: MapOptions(
+                  onPositionChanged: (MapPosition position, bool isOk) {
+                    print("changing: " + position.center.toString());
+                    if (controller.destinationMarkerEnable.value) {
+                      controller.destinationMarker.value = Marker(
+                        width: 30.0,
+                        height: 30.0,
+                        point: position.center,
+                        builder: (ctx) => Container(
+                          child: Icon(Icons.flag),
+                        ),
+                      );
+                    }
+                  },
                   center: LatLng(-25.3389, -57.5210),
                   zoom: 13.0,
                 ),
@@ -29,22 +42,14 @@ class HomeView extends GetView<HomeController> {
                   MarkerLayerOptions(
                     markers: [
                       controller.myMarker.value,
-                      Marker(
-                        width: 30.0,
-                        height: 30.0,
-                        point: LatLng(-25.3389, -57.5210),
-                        builder: (ctx) => Container(
-                          child: Icon(Icons.accessibility),
-                        ),
-                      )
+                      controller.destinationMarker.value
                     ],
                   ),
                 ],
               )),
-
-          /*Obx(
+          Obx(
             () => Visibility(
-              visible: controller.markerDestinationEnable.value,
+              visible: controller.destinationMarkerEnable.value,
               child: Align(
                 alignment: Alignment.center,
                 child: Icon(
@@ -53,7 +58,7 @@ class HomeView extends GetView<HomeController> {
                 ),
               ),
             ),
-          ),*/
+          ),
           Positioned(
             bottom: 110,
             right: 20,

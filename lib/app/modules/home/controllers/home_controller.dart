@@ -8,12 +8,29 @@ import 'package:location/location.dart' as loc;
 
 class HomeController extends GetxController {
   RxBool selectedBottom = RxBool(false);
-  Rx<Marker> myMarker = Rx<Marker>();
+  Rx<Marker> myMarker = Rx<Marker>(Marker(
+    width: 30.0,
+    height: 30.0,
+    point: LatLng(0, 0),
+    builder: (ctx) => Container(
+      child: Icon(Icons.accessibility),
+    ),
+  ));
   StreamSubscription _streamSubscription;
   loc.Location _tracker = loc.Location();
   MapController mapController = MapController();
   LatLng actualPosition = LatLng(0, 0);
   double actualZoom = 15;
+  LatLng destinationPos = LatLng(0, 0);
+  RxBool destinationMarkerEnable = RxBool(false);
+  Rx<Marker> destinationMarker = Rx<Marker>(Marker(
+    width: 30.0,
+    height: 30.0,
+    point: LatLng(0, 0),
+    builder: (ctx) => Container(
+      child: Icon(Icons.flag),
+    ),
+  ));
 
   @override
   void onInit() async {
@@ -43,15 +60,18 @@ class HomeController extends GetxController {
   Future<void> getCurrentLocation() async {
     try {
       loc.LocationData location = await _tracker.getLocation();
-      updateMyPositionMarker(location);
-      actualPosition = LatLng(location.latitude, location.longitude);
-      print("updating");
+      //updateMyPositionMarker(location);
+
       if (_streamSubscription != null) {
         _streamSubscription.cancel();
       }
       _streamSubscription = _tracker.onLocationChanged.listen((location) {
-        print("hola");
-        if (mapController != null) {
+        print(location.toString());
+        print("estado" + destinationMarkerEnable.value.toString());
+        actualPosition = LatLng(location.latitude, location.longitude);
+        if (mapController != null &&
+            !destinationMarkerEnable.value &&
+            location != null) {
           //_centerView(location);
           print("actualizando");
           centerView(location);
@@ -90,5 +110,21 @@ class HomeController extends GetxController {
     }
     double degree = 0;
     mapController.moveAndRotate(actualPosition, actualZoom, degree);
+  }
+
+  void updateMarkerDestination() {
+    print("actualizandoEnController: " + destinationPos.toString());
+    destinationMarker.value = Marker(
+      width: 30.0,
+      height: 30.0,
+      point: destinationPos,
+      builder: (ctx) => Container(
+        child: Icon(Icons.flag),
+      ),
+    );
+  }
+
+  void enableMarkerDestination() {
+    destinationMarkerEnable.toggle();
   }
 }
