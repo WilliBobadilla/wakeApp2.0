@@ -68,21 +68,21 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                       height: 50,
                       width: cardsWidth,
                       child: GestureDetector(
-                          //onTap: controller.cleanRouteAndWayPoints,
+                          onTap: controller.cleanDestination,
                           //let's enable our marker
                           child: Card(
-                        elevation: 3,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(" Eliminar destino"),
-                            Icon(
-                              Icons.restore_from_trash_rounded,
-                              color: Get.theme.primaryColor,
+                            elevation: 3,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(" Eliminar destino"),
+                                Icon(
+                                  Icons.restore_from_trash_rounded,
+                                  color: Get.theme.primaryColor,
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      ))),
+                          ))),
                 ],
               ),
             ],

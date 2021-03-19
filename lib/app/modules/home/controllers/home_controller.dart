@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -71,20 +72,19 @@ class HomeController extends GetxController {
         actualPosition = LatLng(location.latitude, location.longitude);
         if (mapController != null &&
             !destinationMarkerEnable.value &&
-            location != null) {
+            location != null &&
+            destinationPos == LatLng(0, 0)) {
           //_centerView(location);
-          print("actualizando");
+          print("actualizando destination " + destinationPos.toString());
           centerView(location);
           updateMyPositionMarker(location);
-        }
-        /*else if (navigationMode.value) {
+        } else if (!destinationMarkerEnable.value) {
           //navigation mode activated
-          updateMyPositionMarker(data);
-          _centerViewInNavigation(lastRotation, whoIsCalling: "location");
-          var position = maps.LatLng(data.latitude, data.longitude);
-          // in each trigger, we have to calculate the next direction
-          findNextDirection(position);
-        }*/
+          print("With bounds");
+          updateMyPositionMarker(location);
+          centerWithBound();
+          updateMyPositionMarker(location);
+        }
       });
     } catch (e) {
       if (e.code == 'PERMISSION_DENIED') {
@@ -126,5 +126,27 @@ class HomeController extends GetxController {
 
   void enableMarkerDestination() {
     destinationMarkerEnable.toggle();
+  }
+
+  void cleanDestination() {
+    destinationPos = LatLng(0, 0);
+    destinationMarker.value = Marker(
+      width: 30.0,
+      height: 30.0,
+      point: destinationPos,
+      builder: (ctx) => Container(
+        child: Icon(Icons.flag),
+      ),
+    );
+  }
+
+  void centerWithBound() {
+    var left = min(actualPosition.latitude, destinationPos.latitude);
+    var right = max(actualPosition.latitude, destinationPos.latitude);
+    var top = max(actualPosition.longitude, destinationPos.longitude);
+    var bottom = min(actualPosition.longitude, destinationPos.longitude);
+
+    var bounds = LatLngBounds(LatLng(left, bottom), LatLng(right, top));
+    mapController.fitBounds(bounds);
   }
 }
