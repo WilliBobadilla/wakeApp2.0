@@ -10,12 +10,7 @@ The first version of the app was written by Ivan Koop, you can find it in the fo
 
 ## Used libraries
 
-## Funcionamiento y uso :wrench:
-
-1. Setear la posicion de llegada con el boton **elegir destino**
-2. Arrastrar hasta donde queramos ir, al fijar presionar el boton **fijar destino**
-3. Setear a cuantos metros antes quiere que la app nos avise cuando estamos cerca de la parada, en metros, por defecto esta a 4 cuadras antes(400metros aproximadamente)
-4. Disfrutar el viaje y esperar que la app te avise cuando estas cerca :smile:
+## How it works and use :wrench:
 
 ## Screenshoots :iphone:
 
@@ -24,11 +19,11 @@ The first version of the app was written by Ivan Koop, you can find it in the fo
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/2.png"  width="25%" height="35%" />
 </p>
 
-## Aportes
+## Colaborate
 
-Si quieres aportar, haz un fork de la repo, luego abre tu rama, una vez que hiciste todo lo que quieres agregar, y haz un pull request! :smile:
+## Colaborators :man: :woman:
 
-## Colaboradores :man: :woman:
+1. [Giuliano Albrecht](https://github.com/giullianocht)
 
 ## License
 
