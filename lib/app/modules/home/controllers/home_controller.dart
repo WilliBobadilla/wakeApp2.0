@@ -33,6 +33,10 @@ class HomeController extends GetxController {
     ),
   ));
 
+  //this is for the alarm
+  double radiusOfAlarm = 0.5; //in km
+  RxBool popUpVisible = RxBool(false);
+
   @override
   void onInit() async {
     await getCurrentLocation();
@@ -83,7 +87,7 @@ class HomeController extends GetxController {
           print("With bounds");
           updateMyPositionMarker(location);
           centerWithBound();
-          updateMyPositionMarker(location);
+          verifyDestination();
         }
       });
     } catch (e) {
@@ -93,6 +97,41 @@ class HomeController extends GetxController {
         print(e.code);
       }
     }
+  }
+
+  void verifyDestination() {
+    var distance = calculateDistance(actualPosition, destinationPos);
+    print("DISTANCIA: " + distance.toString());
+    if (distance < radiusOfAlarm && !popUpVisible.value) {
+      popUpVisible.value = true;
+      Get.defaultDialog(
+          title: "Cerca de tu destino",
+          content: Text("Deberias de ir hacia la parada y bajarte en breve"),
+          textConfirm: "Aceptar",
+          confirmTextColor: Colors.white,
+          onConfirm: () {
+            Get.back();
+          });
+      print("------------estas cerca de tu destino----------");
+    } else {
+      print("verificando en trafico, aun no estas cerca ");
+    }
+  }
+
+  ///Calculate distance between lat long
+  ///input: lat1, lon1, lat2, lon2
+  ///output: distance in km
+  double calculateDistance(LatLng location1, LatLng location2) {
+    var lat1 = location1.latitude;
+    var lon1 = location1.longitude;
+    var lat2 = location2.latitude;
+    var lon2 = location2.longitude;
+    var p = 0.017453292519943295;
+    var c = cos;
+    var a = 0.5 -
+        c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+    return 12742 * asin(sqrt(a));
   }
 
   void centerView(loc.LocationData locationData) {

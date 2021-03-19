@@ -20,7 +20,6 @@ class HomeView extends GetView<HomeController> {
                 options: MapOptions(
                   onPositionChanged: (MapPosition position, bool isOk) {
                     print("changing: " + position.center.toString());
-
                     if (controller.destinationMarkerEnable.value) {
                       controller.destinationPos = position.center;
                       controller.destinationMarker.value = Marker(
@@ -83,8 +82,9 @@ class HomeView extends GetView<HomeController> {
           ),
           Positioned(
             bottom: 40,
-            left: 35,
+            left: 30,
             right: 30,
+            //width: Get.width,
             child: BottomAnimatedContainer(),
           ),
         ],
