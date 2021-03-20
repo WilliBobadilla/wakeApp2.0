@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:wake_app_2_0/app/modules/home/controllers/home_controller.dart';
 
 class BottomAnimatedContainer extends GetView<HomeController> {
   final double cardsWidth = Get.width * 0.40;
+  TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Obx(() => AnimatedContainer(
@@ -136,6 +138,24 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                               width: cardsWidth,
                               child: GestureDetector(
                                   onTap: () {
+                                    Get.defaultDialog(
+                                        title: "Configuracion",
+                                        content: configAlarm(),
+                                        textConfirm: "Aceptar",
+                                        confirmTextColor: Colors.white,
+                                        onConfirm: () {
+                                          // update the distante for the alarm
+                                          //we have to convert from meters to km, so we divide by 1000
+                                          controller.radiusOfAlarm =
+                                              int.parse(textController.text) /
+                                                  1000;
+
+                                          Get.back();
+                                        },
+                                        onCancel: () {
+                                          Get.back();
+                                        });
+
                                     print("-----markers length------");
                                   },
                                   child: Card(
@@ -145,8 +165,6 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text("Configurar Alarma"),
-                                        /* Obx(() =>
-                                    Text(controller.choosePlacesText.value)),*/
                                         Icon(
                                           Icons.surround_sound,
                                           color: Get.theme.primaryColor,
@@ -159,5 +177,28 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                     ],
                   ))
             ]));
+  }
+
+  Widget configAlarm() {
+    return Column(
+      children: [
+        Text("Inserte la distancia a la que desea que el recordatorio suene: "),
+        Text("La distancia actual es: " +
+            controller.radiusOfAlarm.toString() +
+            " KM"),
+        Card(
+          elevation: 4,
+          child: TextField(
+              controller: textController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: InputBorder.none, hintText: 'Distancia en metros')),
+        )
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //   children: [],
+        // ),
+      ],
+    );
   }
 }

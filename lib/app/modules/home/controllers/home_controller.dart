@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:isolate';
 import 'dart:math';
+import 'dart:ui';
 
+import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
@@ -36,7 +39,8 @@ class HomeController extends GetxController {
   //this is for the alarm
   double radiusOfAlarm = 0.5; //in km
   RxBool popUpVisible = RxBool(false);
-
+  static SendPort uiSendPort;
+  String isolateName = 'isolate';
   @override
   void onInit() async {
     await getCurrentLocation();
@@ -104,6 +108,7 @@ class HomeController extends GetxController {
     print("DISTANCIA: " + distance.toString());
     if (distance < radiusOfAlarm && !popUpVisible.value) {
       popUpVisible.value = true;
+      shotAlarm();
       Get.defaultDialog(
           title: "Cerca de tu destino",
           content: Text("Deberias de ir hacia la parada y bajarte en breve"),
@@ -116,6 +121,24 @@ class HomeController extends GetxController {
     } else {
       print("verificando en trafico, aun no estas cerca ");
     }
+  }
+
+  Future<void> callback() async {
+    print('Alarm fired!');
+    // This will be null if we're running in the background.
+    uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
+    uiSendPort?.send(null);
+  }
+
+  Future<void> shotAlarm() async {
+    AndroidAlarmManager.oneShot(
+      const Duration(seconds: 5),
+      // Ensure we have a unique alarm ID.
+      Random().nextInt(pow(2, 31)),
+      callback,
+      exact: true,
+      wakeup: true,
+    );
   }
 
   ///Calculate distance between lat long
