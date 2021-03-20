@@ -3,7 +3,6 @@ import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:android_alarm_manager/android_alarm_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
@@ -160,17 +159,6 @@ class HomeController extends GetxController {
     // This will be null if we're running in the background.
     uiSendPort ??= IsolateNameServer.lookupPortByName(isolateName);
     uiSendPort?.send(null);
-  }
-
-  Future<void> shotAlarm() async {
-    AndroidAlarmManager.oneShot(
-      const Duration(seconds: 5),
-      // Ensure we have a unique alarm ID.
-      Random().nextInt(pow(2, 31)),
-      callback,
-      exact: true,
-      wakeup: true,
-    );
   }
 
   ///Calculate distance between lat long

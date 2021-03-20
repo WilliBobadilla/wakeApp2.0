@@ -39,11 +39,14 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "wakeapp2.com.wake_app_2_0"
-        minSdkVersion 16
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        //classpath 'com.android.tools.build:gradle:3.3.1' 
+        multiDexEnabled true
     }
+
 
     buildTypes {
         release {
@@ -61,3 +64,4 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
+
