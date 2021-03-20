@@ -68,7 +68,7 @@ class HomeController extends GetxController {
 
   Future<void> getCurrentLocation() async {
     try {
-      loc.LocationData location = await _tracker.getLocation();
+      //loc.LocationData location = await _tracker.getLocation();
       //updateMyPositionMarker(location);
 
       if (_streamSubscription != null) {

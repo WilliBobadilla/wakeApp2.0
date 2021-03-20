@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 
 import 'dart:isolate';
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:android_alarm_manager/android_alarm_manager.dart';

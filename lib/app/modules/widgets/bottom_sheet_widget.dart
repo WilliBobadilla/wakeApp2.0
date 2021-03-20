@@ -6,7 +6,7 @@ import 'package:wake_app_2_0/app/modules/home/controllers/home_controller.dart';
 
 class BottomAnimatedContainer extends GetView<HomeController> {
   final double cardsWidth = Get.width * 0.40;
-  TextEditingController textController = TextEditingController();
+  final TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Obx(() => AnimatedContainer(
@@ -27,7 +27,6 @@ class BottomAnimatedContainer extends GetView<HomeController> {
               FloatingActionButton(
                 heroTag: 6,
                 onPressed: () {
-                  // print("cambiando" + controller.selectedBottom.value.toString());
                   controller.selectedBottom.value =
                       !controller.selectedBottom.value;
                 },
@@ -44,8 +43,6 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                 backgroundColor: Colors.white,
               ),
               Container(
-                  //width: Get.width,
-                  //height: 500,
                   decoration: BoxDecoration(
                     color: Colors.blueAccent,
                     borderRadius: BorderRadius.only(
@@ -76,14 +73,12 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                                         ),
                                       ],
                                     ),
-                                    /*Obx(() => controller.destinationWidget())*/
                                   ))),
                           Container(
                               height: 50,
                               width: cardsWidth,
                               child: GestureDetector(
                                   onTap: controller.cleanDestination,
-                                  //let's enable our marker
                                   child: Card(
                                     elevation: 3,
                                     child: Row(
