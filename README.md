@@ -24,6 +24,8 @@ La primera version de la app vio la luz hace un tiempo atras, se puede encontrar
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/1.png"  width="25%" height="35%" />
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/2.png"  width="25%" height="35%" />
 </p>
+<img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/3.png"  width="25%" height="35%" />
+</p>
 
 ## Aportes
 
