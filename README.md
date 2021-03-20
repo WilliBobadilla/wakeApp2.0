@@ -2,7 +2,11 @@
 
 Proyecto que ayuda a las personas a alertarlas cuando estan cercanas a su destino gracias al uso del gps del telefono, y una alarma como tono de aviso.
 Es frecuente que las personas queden dormidas en el transporte publico y pasarse de largo su parada, y es por eso que esta app busca solucionar esta problematica.
-La primera version de la app vio la luz hace un tiempo atras, se puede encontrar en el siguiente enlace [wakeApp](https://github.com/ivankoop/Android-WakeApp), de Ivan Koop, la version para android escrita en Java.
+La primera version de la app vio la luz hace un tiempo atras, se puede encontrar en el siguiente enlace [wakeApp](https://github.com/ivankoop/Android-WakeApp), de [Ivan Koop](), la version para android escrita en Java.
+
+# Instalacion (For Android )
+
+- Podes descargar el instalador desde [aca]()
 
 ## Tecnologias usadas :sunglasses:
 
@@ -23,7 +27,6 @@ La primera version de la app vio la luz hace un tiempo atras, se puede encontrar
 <p float="left">
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/1.png"  width="25%" height="35%" />
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/2.png"  width="25%" height="35%" />
-
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/3.png"  width="25%" height="35%" />
 </p>
 
