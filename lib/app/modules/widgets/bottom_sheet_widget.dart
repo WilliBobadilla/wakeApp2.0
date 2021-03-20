@@ -149,7 +149,11 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                                           controller.radiusOfAlarm =
                                               int.parse(textController.text) /
                                                   1000;
-
+                                          print("new value is" +
+                                              controller.radiusOfAlarm
+                                                  .toString());
+                                          textController.text =
+                                              "Distancia en metros"; //clean input
                                           Get.back();
                                         },
                                         onCancel: () {
