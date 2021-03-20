@@ -9,6 +9,10 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import "package:latlong/latlong.dart";
 import 'package:location/location.dart' as loc;
+//player of alarm
+
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 class HomeController extends GetxController {
   RxBool selectedBottom = RxBool(false);
@@ -41,9 +45,17 @@ class HomeController extends GetxController {
   RxBool popUpVisible = RxBool(false);
   static SendPort uiSendPort;
   String isolateName = 'isolate';
+
+  //player for the alarm
+  Duration _duration = new Duration();
+  Duration _position = new Duration();
+  AudioPlayer advancedPlayer;
+  AudioCache audioCache;
+  String localFilePath;
   @override
   void onInit() async {
     await getCurrentLocation();
+    initPlayer();
     super.onInit();
   }
 
@@ -54,6 +66,19 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
+  void initPlayer() {
+    advancedPlayer = new AudioPlayer();
+    audioCache = new AudioCache(fixedPlayer: advancedPlayer);
+
+    advancedPlayer.durationHandler = (d) => () {
+          _duration = d;
+        };
+
+    advancedPlayer.positionHandler = (p) => () {
+          _position = p;
+        };
+  }
+
   void updateMyPositionMarker(loc.LocationData dataPos) async {
     LatLng newPos = LatLng(dataPos.latitude, dataPos.longitude);
     myMarker.value = Marker(
@@ -108,13 +133,20 @@ class HomeController extends GetxController {
     print("DISTANCIA: " + distance.toString());
     if (distance < radiusOfAlarm && !popUpVisible.value) {
       popUpVisible.value = true;
-      shotAlarm();
+      // shotAlarm();
+      audioCache.play('audios/alarm.mp3');
       Get.defaultDialog(
           title: "Cerca de tu destino",
-          content: Text("Deberias de ir hacia la parada y bajarte en breve"),
+          content: Column(
+            children: [
+              Text("Deberias de ir hacia la parada y bajarte en breve"),
+              Text("Pula aceptar para parar la alarma")
+            ],
+          ),
           textConfirm: "Aceptar",
           confirmTextColor: Colors.white,
           onConfirm: () {
+            advancedPlayer.stop();
             Get.back();
           });
       print("------------estas cerca de tu destino----------");
@@ -191,6 +223,7 @@ class HomeController extends GetxController {
   }
 
   void cleanDestination() {
+    popUpVisible.value = false; // to launch again the popUp on a new pos
     destinationPos = LatLng(0, 0);
     destinationMarker.value = Marker(
       width: 30.0,

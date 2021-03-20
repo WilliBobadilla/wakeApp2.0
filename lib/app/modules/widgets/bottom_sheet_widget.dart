@@ -42,139 +42,121 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                 mini: true,
                 backgroundColor: Colors.white,
               ),
-              Container(
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(36),
-                        topRight: Radius.circular(36)),
-                  ),
-                  child: Column(
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                              height: 50,
-                              width: cardsWidth,
-                              child: GestureDetector(
-                                  onTap: controller.enableMarkerDestination,
-                                  //let's enable our marker
-                                  child: Card(
-                                    elevation: 3,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text("Elegir Destino"),
-                                        Icon(
-                                          Icons.place,
-                                          color: Get.theme.primaryColor,
-                                        ),
-                                      ],
+                      Container(
+                          height: 50,
+                          width: cardsWidth,
+                          child: GestureDetector(
+                              onTap: controller.enableMarkerDestination,
+                              //let's enable our marker
+                              child: Card(
+                                elevation: 3,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Elegir Destino"),
+                                    Icon(
+                                      Icons.place,
+                                      color: Get.theme.primaryColor,
                                     ),
-                                  ))),
-                          Container(
-                              height: 50,
-                              width: cardsWidth,
-                              child: GestureDetector(
-                                  onTap: controller.cleanDestination,
-                                  child: Card(
-                                    elevation: 3,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(" Eliminar destino"),
-                                        Icon(
-                                          Icons.restore_from_trash_rounded,
-                                          color: Get.theme.primaryColor,
-                                        ),
-                                      ],
+                                  ],
+                                ),
+                              ))),
+                      Container(
+                          height: 50,
+                          width: cardsWidth,
+                          child: GestureDetector(
+                              onTap: controller.cleanDestination,
+                              child: Card(
+                                elevation: 3,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(" Eliminar destino"),
+                                    Icon(
+                                      Icons.restore_from_trash_rounded,
+                                      color: Get.theme.primaryColor,
                                     ),
-                                  ))),
-                        ],
-                      ),
+                                  ],
+                                ),
+                              ))),
                     ],
-                  )),
-              Container(
-                  //width: Get.width,
-                  decoration: BoxDecoration(
-                    color: Colors.blueAccent,
                   ),
-                  child: Column(
+                ],
+              ),
+              Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Container(
-                              height: 50,
-                              width: cardsWidth,
-                              child: GestureDetector(
-                                  onTap: () {
-                                    //if marker not set, you can not find a route
-                                  },
-                                  child: Card(
-                                    elevation: 3,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text("   Empezar viaje   "),
-                                        Icon(
-                                          Icons.router_sharp,
-                                          color: Get.theme.primaryColor,
-                                        ),
-                                      ],
+                      Container(
+                          height: 50,
+                          width: cardsWidth,
+                          child: GestureDetector(
+                              onTap: () {
+                                //if marker not set, you can not find a route
+                              },
+                              child: Card(
+                                elevation: 3,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("   Empezar viaje   "),
+                                    Icon(
+                                      Icons.router_sharp,
+                                      color: Get.theme.primaryColor,
                                     ),
-                                  ))),
-                          Container(
-                              height: 50,
-                              width: cardsWidth,
-                              child: GestureDetector(
-                                  onTap: () {
-                                    Get.defaultDialog(
-                                        title: "Configuracion",
-                                        content: configAlarm(),
-                                        textConfirm: "Aceptar",
-                                        confirmTextColor: Colors.white,
-                                        onConfirm: () {
-                                          // update the distante for the alarm
-                                          //we have to convert from meters to km, so we divide by 1000
-                                          controller.radiusOfAlarm =
-                                              int.parse(textController.text) /
-                                                  1000;
-                                          print("new value is" +
-                                              controller.radiusOfAlarm
-                                                  .toString());
-                                          textController.text =
-                                              "Distancia en metros"; //clean input
-                                          Get.back();
-                                        },
-                                        onCancel: () {
-                                          Get.back();
-                                        });
+                                  ],
+                                ),
+                              ))),
+                      Container(
+                          height: 50,
+                          width: cardsWidth,
+                          child: GestureDetector(
+                              onTap: () {
+                                Get.defaultDialog(
+                                    title: "Configuracion",
+                                    content: configAlarm(),
+                                    textConfirm: "Aceptar",
+                                    confirmTextColor: Colors.white,
+                                    onConfirm: () {
+                                      // update the distante for the alarm
+                                      //we have to convert from meters to km, so we divide by 1000
+                                      controller.radiusOfAlarm =
+                                          int.parse(textController.text) / 1000;
+                                      print("new value is" +
+                                          controller.radiusOfAlarm.toString());
+                                      textController.text =
+                                          "Distancia en metros"; //clean input
+                                      Get.back();
+                                    },
+                                    onCancel: () {
+                                      Get.back();
+                                    });
 
-                                    print("-----markers length------");
-                                  },
-                                  child: Card(
-                                    elevation: 3,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text("Configurar Alarma"),
-                                        Icon(
-                                          Icons.surround_sound,
-                                          color: Get.theme.primaryColor,
-                                        ),
-                                      ],
+                                print("-----markers length------");
+                              },
+                              child: Card(
+                                elevation: 3,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text("Configurar Alarma"),
+                                    Icon(
+                                      Icons.surround_sound,
+                                      color: Get.theme.primaryColor,
                                     ),
-                                  ))),
-                        ],
-                      ),
+                                  ],
+                                ),
+                              ))),
                     ],
-                  ))
+                  ),
+                ],
+              )
             ]));
   }
 
