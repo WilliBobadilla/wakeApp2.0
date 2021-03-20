@@ -17,7 +17,7 @@ The first version of the app was written by Ivan Koop, you can find it in the fo
 <p float="left">
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/1.png"  width="25%" height="35%" />
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/2.png"  width="25%" height="35%" />
-</p>
+
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/3.png"  width="25%" height="35%" />
 </p>
 ## Colaborate
