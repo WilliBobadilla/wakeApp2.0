@@ -1,4 +1,4 @@
-# wake_app_2_0 (in progress, en proceso) :rocket:
+# wake_app_2_0 (in progress, en proceso) [english version](https://github.com/WilliBobadilla/wakeApp2.0/blob/master/README-ENGLISH.md) :rocket:
 
 Proyecto que ayuda a las personas a alertarlas cuando estan cercanas a su destino gracias al uso del gps del telefono, y una alarma como tono de aviso.
 Es frecuente que las personas queden dormidas en el transporte publico y pasarse de largo su parada, y es por eso que esta app busca solucionar esta problematica.
