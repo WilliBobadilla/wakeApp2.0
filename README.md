@@ -13,7 +13,12 @@ La primera version de la app vio la luz hace un tiempo atras, se puede encontrar
 - Flutter, escrita en Dart
 - OSM, Open Street Map
 
-## Librerías utilizadas
+## Librerías utilizadas :nut_and_bolt:
+
+- [get](https://pub.dev/packages/get)
+- [flutter_map](https://pub.dev/packages/flutter_map)
+- [location](https://pub.dev/packages/location)
+- [audioplayers](https://pub.dev/packages/audioplayers)
 
 ## Funcionamiento y uso :wrench:
 

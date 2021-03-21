@@ -12,7 +12,12 @@ The first version of the app was written by Ivan Koop, you can find it in the fo
 - Flutter, written in Dart
 - OSM, Open Street Map
 
-## Used libraries
+## Used libraries :nut_and_bolt:
+
+- [get](https://pub.dev/packages/get)
+- [flutter_map](https://pub.dev/packages/flutter_map)
+- [location](https://pub.dev/packages/location)
+- [audioplayers](https://pub.dev/packages/audioplayers)
 
 ## How it works and use :wrench:
 
