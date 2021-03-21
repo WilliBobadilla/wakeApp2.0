@@ -38,7 +38,7 @@ Si quieres aportar, haz un fork de la repo, luego abre tu rama, una vez que hici
 
 1. [Giuliano Albrecht](https://github.com/giullianocht)
 
-## License
+## License :page_facing_up:
 
 Copyright 2021 Williams Bobadilla
 

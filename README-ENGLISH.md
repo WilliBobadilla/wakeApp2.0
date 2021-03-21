@@ -33,7 +33,7 @@ If you want to colaborate with this project, you can make a fork of the repo, ad
 
 1. [Giuliano Albrecht](https://github.com/giullianocht)
 
-## License
+## License :page_facing_up:
 
 Copyright 2021 Williams Bobadilla
 
