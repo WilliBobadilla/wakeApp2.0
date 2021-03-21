@@ -3,6 +3,10 @@
 App to help people to alert when they are near of theis destination, thanks to the gps of the phone, you can know the distance from where you are to your destination position, so the app calculates the distance and then it checks if you are near of your destination, and when this happens, the app notifies you with an alarm.
 The first version of the app was written by Ivan Koop, you can find it in the following link: [wakeApp](https://github.com/ivankoop/Android-WakeApp), this version of the app was written in Java.
 
+## Instalation ( Android ) :dvd:
+
+- You can download the installer from [here](https://github.com/WilliBobadilla/wakeApp2.0/raw/master/generatedApk/app-release.apk)
+
 ## Used Tecnologies:sunglasses:
 
 - Flutter, written in Dart
@@ -20,7 +24,10 @@ The first version of the app was written by Ivan Koop, you can find it in the fo
 
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/3.png"  width="25%" height="35%" />
 </p>
-## Colaborate
+
+## Contribute
+
+If you want to colaborate with this project, you can make a fork of the repo, add what you want and then make a pull request! :smile:
 
 ## Colaborators :man: :woman:
 

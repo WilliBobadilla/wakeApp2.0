@@ -4,16 +4,16 @@ Proyecto que ayuda a las personas a alertarlas cuando estan cercanas a su destin
 Es frecuente que las personas queden dormidas en el transporte publico y pasarse de largo su parada, y es por eso que esta app busca solucionar esta problematica.
 La primera version de la app vio la luz hace un tiempo atras, se puede encontrar en el siguiente enlace [wakeApp](https://github.com/ivankoop/Android-WakeApp), de [Ivan Koop](), la version para android escrita en Java.
 
-## Instalacion (For Android ) :dvd:
+## Instalación ( Android ) :dvd:
 
 - Podes descargar el instalador desde [aca](https://github.com/WilliBobadilla/wakeApp2.0/raw/master/generatedApk/app-release.apk)
 
-## Tecnologias usadas :sunglasses:
+## Tecnologías usadas :sunglasses:
 
 - Flutter, escrita en Dart
 - OSM, Open Street Map
 
-## Librerias utilizadas
+## Librerías utilizadas
 
 ## Funcionamiento y uso :wrench:
 
