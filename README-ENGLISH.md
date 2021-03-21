@@ -25,7 +25,7 @@ The first version of the app was written by Ivan Koop, you can find it in the fo
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/3.png"  width="25%" height="35%" />
 </p>
 
-## Contribute
+## Contribute :muscle:
 
 If you want to colaborate with this project, you can make a fork of the repo, add what you want and then make a pull request! :smile:
 

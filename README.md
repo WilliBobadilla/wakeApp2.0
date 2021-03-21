@@ -30,7 +30,7 @@ La primera version de la app vio la luz hace un tiempo atras, se puede encontrar
 <img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/3.png"  width="25%" height="35%" />
 </p>
 
-## Aportes
+## Aportes :muscle:
 
 Si quieres aportar, haz un fork de la repo, luego abre tu rama, una vez que hiciste todo lo que quieres agregar, y haz un pull request! :smile:
 
