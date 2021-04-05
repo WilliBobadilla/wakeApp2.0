@@ -19,20 +19,22 @@ La primera version de la app vio la luz hace un tiempo atras, se puede encontrar
 - [flutter_map](https://pub.dev/packages/flutter_map)
 - [location](https://pub.dev/packages/location)
 - [audioplayers](https://pub.dev/packages/audioplayers)
+- [location_permissions](https://pub.dev/packages/location_permissions)
+- [url_launcher](https://pub.dev/packages/url_launcher)
 
 ## Funcionamiento y uso :wrench:
 
 1. Setear la posicion de llegada con el boton **elegir destino**
 2. Arrastrar hasta donde queramos ir, al fijar presionar el boton **fijar destino**
-3. Setear a cuantos metros antes quiere que la app nos avise cuando estamos cerca de la parada, en metros, por defecto esta a 4 cuadras antes(400metros aproximadamente)
+3. Setear a cuantos metros antes quiere que la app nos avise cuando estamos cerca de la parada, en metros, por defecto esta a 5 cuadras antes(500metros aproximadamente)
 4. Disfrutar el viaje y esperar que la app te avise cuando estas cerca :smile:
 
 ## Screenshoots :iphone:
 
 <p float="left">
-<img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/1.png"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/2.png"  width="25%" height="35%" />
-<img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/3.png"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/1.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/2.jpeg"  width="25%" height="35%" />
+<img src="https://github.com/WilliBobadilla/wakeApp2.0/blob/master/screenshoots/3.jpeg"  width="25%" height="35%" />
 </p>
 
 ## Aportes :muscle:
