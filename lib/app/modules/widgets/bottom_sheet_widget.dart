@@ -105,9 +105,9 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text("   Empezar viaje   "),
+                                    Text("   Info   "),
                                     Icon(
-                                      Icons.router_sharp,
+                                      Icons.info,
                                       color: Get.theme.primaryColor,
                                     ),
                                   ],
