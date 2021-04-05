@@ -5,7 +5,7 @@ The first version of the app was written by Ivan Koop, you can find it in the fo
 
 ## Instalation ( Android ) :dvd:
 
-- You can download the installer from [here](https://github.com/WilliBobadilla/wakeApp2.0/raw/master/generatedApk/app-release.apk)
+- You can download the installer from [here](https://github.com/WilliBobadilla/wakeApp2.0/blob/master/generatedApk/wakeApp2-0.apk)
 
 ## Used Tecnologies:sunglasses:
 

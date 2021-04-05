@@ -6,7 +6,7 @@ La primera version de la app vio la luz hace un tiempo atras, se puede encontrar
 
 ## Instalación ( Android ) :dvd:
 
-- Podes descargar el instalador desde [aca](https://github.com/WilliBobadilla/wakeApp2.0/raw/master/generatedApk/app-release.apk)
+- Podes descargar el instalador desde [aca](https://github.com/WilliBobadilla/wakeApp2.0/blob/master/generatedApk/wakeApp2-0.apk)
 
 ## Tecnologías usadas :sunglasses:
 
