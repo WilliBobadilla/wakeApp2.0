@@ -16,14 +16,14 @@ class AboutView extends GetView<AboutController> {
       body: Center(
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Container(
-            height: 30,
+            height: 10,
           ),
           Text(
             'WakeApp 2.0',
             style: TextStyle(fontSize: 35),
           ),
           Container(
-            height: 20,
+            height: 10,
           ),
           Text(
             'Deja que WakeApp te avise al llegar cerca de tu parada!',
@@ -50,6 +50,11 @@ class AboutView extends GetView<AboutController> {
             leading: Icon(Icons.person),
             title: Text("Giuliano Albrecht"),
           ),
+          ListTile(
+              title: Text(
+            "Información",
+            style: TextStyle(fontSize: 20),
+          )),
           ListTile(
             leading: Icon(Icons.verified_sharp),
             title: Text("Version 2.0 "),
