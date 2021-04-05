@@ -64,6 +64,7 @@ class HomeView extends GetView<HomeController> {
             bottom: 110,
             right: 20,
             child: FloatingActionButton(
+              heroTag: 1,
               child: Center(child: Icon(Icons.add)),
               onPressed: () {
                 controller.zoom(mode: "in");
@@ -74,6 +75,7 @@ class HomeView extends GetView<HomeController> {
             bottom: 40,
             right: 20,
             child: FloatingActionButton(
+              heroTag: 2,
               child: Center(child: Icon(Icons.minimize_sharp)),
               onPressed: () {
                 controller.zoom(mode: "out");

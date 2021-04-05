@@ -26,31 +26,37 @@ class AboutView extends GetView<AboutController> {
             height: 20,
           ),
           Text(
-            'Una misión, una visión',
+            'Deja que WakeApp te avise al llegar cerca de tu parada!',
             style: TextStyle(fontSize: 25),
           ),
           Container(
             height: 30,
           ),
           ListTile(
+              title: Text(
+            "Desarollador",
+            style: TextStyle(fontSize: 20),
+          )),
+          ListTile(
             leading: Icon(Icons.person),
             title: Text("Williams Bobadilla"),
           ),
           ListTile(
-            leading: Icon(Icons.person),
-            title: Text("Martin Encina"),
-          ),
+              title: Text(
+            "Colaboradores",
+            style: TextStyle(fontSize: 20),
+          )),
           ListTile(
             leading: Icon(Icons.person),
-            title: Text("Victor Gallardo"),
-          ),
-          ListTile(
-            leading: Icon(Icons.email),
-            title: Text("Email del desarollador:"),
+            title: Text("Giuliano Albrecht"),
           ),
           ListTile(
             leading: Icon(Icons.verified_sharp),
             title: Text("Version 2.0 "),
+          ),
+          ListTile(
+            leading: Icon(Icons.email),
+            title: Text("Email del desarollador:"),
           ),
           Padding(
               padding: EdgeInsets.all(5),

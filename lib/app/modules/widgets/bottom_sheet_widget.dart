@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:wake_app_2_0/app/modules/home/controllers/home_controller.dart';
+import 'package:wake_app_2_0/app/routes/app_pages.dart';
 
 class BottomAnimatedContainer extends GetView<HomeController> {
   final double cardsWidth = Get.width * 0.40;
@@ -25,7 +26,7 @@ class BottomAnimatedContainer extends GetView<HomeController> {
             mainAxisSize: MainAxisSize.min,
             children: [
               FloatingActionButton(
-                heroTag: 6,
+                heroTag: 3,
                 onPressed: () {
                   controller.selectedBottom.value =
                       !controller.selectedBottom.value;
@@ -98,6 +99,7 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                           width: cardsWidth,
                           child: GestureDetector(
                               onTap: () {
+                                Get.toNamed(Routes.ABOUT);
                                 //if marker not set, you can not find a route
                               },
                               child: Card(
@@ -105,7 +107,7 @@ class BottomAnimatedContainer extends GetView<HomeController> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text("   Info   "),
+                                    Text("   Información   "),
                                     Icon(
                                       Icons.info,
                                       color: Get.theme.primaryColor,
