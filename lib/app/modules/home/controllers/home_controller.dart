@@ -13,6 +13,8 @@ import 'package:location/location.dart' as loc;
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 
+import 'package:location_permissions/location_permissions.dart';
+
 class HomeController extends GetxController {
   RxBool selectedBottom = RxBool(false);
   Rx<Marker> myMarker = Rx<Marker>(Marker(
@@ -53,7 +55,30 @@ class HomeController extends GetxController {
   String localFilePath;
   @override
   void onInit() async {
-    await getCurrentLocation();
+    PermissionStatus permission =
+        await LocationPermissions().checkPermissionStatus();
+    print(permission.toString());
+    if (permission == PermissionStatus.unknown ||
+        permission == PermissionStatus.denied) {
+      PermissionStatus permissionAfterRequest =
+          await LocationPermissions().requestPermissions();
+      if (permissionAfterRequest == PermissionStatus.granted) {
+        await getCurrentLocation();
+      } else {
+        Get.defaultDialog(
+            title: "La app no puede ayudarte sin tu ubicación",
+            content: Row(children: [
+              Text("Debes de dar permisos para usar tu ubicación")
+            ]),
+            textConfirm: "Aceptar",
+            onConfirm: () {
+              Get.back();
+            });
+      }
+    } else if (permission == PermissionStatus.granted) {
+      await getCurrentLocation();
+    }
+
     initPlayer();
     super.onInit();
   }
