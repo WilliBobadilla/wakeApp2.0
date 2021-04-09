@@ -22,7 +22,10 @@ class HomeController extends GetxController {
     height: 30.0,
     point: LatLng(0, 0),
     builder: (ctx) => Container(
-      child: Icon(Icons.accessibility),
+      child: Icon(
+        Icons.accessibility,
+        color: Colors.green,
+      ),
     ),
   ));
   StreamSubscription _streamSubscription;
