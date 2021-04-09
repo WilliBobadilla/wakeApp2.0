@@ -86,6 +86,15 @@ class HomeController extends GetxController {
     // Fired whenever a location is recorded
     bg.BackgroundGeolocation.onLocation((bg.Location location) {
       print('[location] - $location');
+      var newLocation = LatLng(
+        location.coords.latitude,
+        location.coords.longitude,
+      );
+      actualPosition = newLocation;
+      updateMyPositionMarker(newLocation);
+      centerWithBound();
+      verifyDestination();
+
       //here we have to call onLocationBackground method but
     });
 
@@ -141,6 +150,7 @@ class HomeController extends GetxController {
       _streamSubscription = _tracker.onLocationChanged.listen((location) {
         print(location.toString());
         print("estado" + destinationMarkerEnable.value.toString());
+
         actualPosition = LatLng(location.latitude, location.longitude);
         if (mapController != null &&
             !destinationMarkerEnable.value &&
@@ -148,12 +158,12 @@ class HomeController extends GetxController {
             destinationPos == LatLng(0, 0)) {
           //_centerView(location);
           print("actualizando destination " + destinationPos.toString());
-          centerView(location);
-          updateMyPositionMarker(location);
+          centerView(actualPosition);
+          updateMyPositionMarker(actualPosition);
         } else if (!destinationMarkerEnable.value) {
           //navigation mode activated
           print("With bounds");
-          updateMyPositionMarker(location);
+          updateMyPositionMarker(actualPosition);
           centerWithBound();
           verifyDestination();
         }
@@ -180,7 +190,7 @@ class HomeController extends GetxController {
         };
   }
 
-  void updateMyPositionMarker(loc.LocationData dataPos) async {
+  void updateMyPositionMarker(LatLng dataPos) async {
     LatLng newPos = LatLng(dataPos.latitude, dataPos.longitude);
     myMarker.value = Marker(
       width: 30.0,
@@ -242,8 +252,8 @@ class HomeController extends GetxController {
     return 12742 * asin(sqrt(a));
   }
 
-  void centerView(loc.LocationData locationData) {
-    LatLng center = LatLng(locationData.latitude, locationData.longitude);
+  void centerView(LatLng center) {
+    //LatLng center = LatLng(locationData.latitude, locationData.longitude);
     double degree = 0;
     mapController.moveAndRotate(center, actualZoom, degree);
   }
