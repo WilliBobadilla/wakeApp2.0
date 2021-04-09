@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="wakeapp2.com.wake_app_2_0">
+    package="wakeapp2.com.wake_app_2_0"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -11,10 +13,11 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
 
 
     <application
+    tools:replace="android:label"
         android:name="io.flutter.app.FlutterApplication"
         android:label="wake_app_2_0"
         android:icon="@mipmap/ic_launcher">
@@ -25,7 +28,8 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            >
             <!-- Specifies an Android theme to apply to this Activity as soon as
                  the Android process has started. This theme is visible to the user
                  while the Flutter UI initializes. After that, this theme continues
@@ -53,5 +57,9 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+          <meta-data
+            tools:replace="android:value"
+            android:name="android.support.VERSION"
+            android:value="26.0.2" />
     </application>
 </manifest>

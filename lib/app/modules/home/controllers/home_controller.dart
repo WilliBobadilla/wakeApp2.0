@@ -8,15 +8,15 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import "package:latlong/latlong.dart";
 import 'package:location/location.dart' as loc;
-//player of alarm
 
+//player of alarm
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 import 'package:location_permissions/location_permissions.dart';
-import 'package:workmanager/workmanager.dart';
 
-const String fetchBackground = "fetchBackground";
+import 'package:flutter_background_geolocation/flutter_background_geolocation.dart'
+    as bg;
 
 class HomeController extends GetxController {
   //to execute in background
@@ -64,17 +64,32 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     //initialize the workmanager
-    Workmanager.initialize(
-      callbackDispatcher,
-      isInDebugMode: true,
-    );
+    ////
+    // 2.  Configure the plugin
+    //
+    bg.BackgroundGeolocation.ready(bg.Config(
+            desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
+            distanceFilter: 10.0,
+            stopOnTerminate: false,
+            startOnBoot: true,
+            debug: true,
+            logLevel: bg.Config.LOG_LEVEL_VERBOSE))
+        .then((bg.State state) {
+      if (!state.enabled) {
+        ////
+        // 3.  Start the plugin.
+        //
+        bg.BackgroundGeolocation.start();
+      }
+    });
 
-    Workmanager.registerPeriodicTask(
-      "1",
-      fetchBackground,
-      frequency: Duration(seconds: 2),
-    );
-//request for permision
+    // Fired whenever a location is recorded
+    bg.BackgroundGeolocation.onLocation((bg.Location location) {
+      print('[location] - $location');
+      //here we have to call onLocationBackground method but
+    });
+
+    //request for permision
     PermissionStatus permission =
         await LocationPermissions().checkPermissionStatus();
     print(permission.toString());
@@ -100,6 +115,7 @@ class HomeController extends GetxController {
     }
 
     initPlayer();
+
     super.onInit();
   }
 
@@ -111,6 +127,9 @@ class HomeController extends GetxController {
   @override
   void onClose() {}
 
+//-------------------background task------------------
+
+/*------normal tasks-----*/
   Future<void> getCurrentLocation() async {
     try {
       //loc.LocationData location = await _tracker.getLocation();
@@ -146,17 +165,6 @@ class HomeController extends GetxController {
         print(e.code);
       }
     }
-  }
-
-  void callbackDispatcher() {
-    Workmanager.executeTask((task, inputData) async {
-      switch (task) {
-        case fetchBackground:
-          getCurrentLocation();
-          break;
-      }
-      return Future.value(true);
-    });
   }
 
   void initPlayer() {
