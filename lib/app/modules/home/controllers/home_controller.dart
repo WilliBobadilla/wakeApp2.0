@@ -14,8 +14,13 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 import 'package:location_permissions/location_permissions.dart';
+import 'package:workmanager/workmanager.dart';
+
+const String fetchBackground = "fetchBackground";
 
 class HomeController extends GetxController {
+  //to execute in background
+
   RxBool selectedBottom = RxBool(false);
   Rx<Marker> myMarker = Rx<Marker>(Marker(
     width: 30.0,
@@ -58,6 +63,18 @@ class HomeController extends GetxController {
   String localFilePath;
   @override
   void onInit() async {
+    //initialize the workmanager
+    Workmanager.initialize(
+      callbackDispatcher,
+      isInDebugMode: true,
+    );
+
+    Workmanager.registerPeriodicTask(
+      "1",
+      fetchBackground,
+      frequency: Duration(seconds: 2),
+    );
+//request for permision
     PermissionStatus permission =
         await LocationPermissions().checkPermissionStatus();
     print(permission.toString());
@@ -93,30 +110,6 @@ class HomeController extends GetxController {
 
   @override
   void onClose() {}
-  void initPlayer() {
-    advancedPlayer = new AudioPlayer();
-    audioCache = new AudioCache(fixedPlayer: advancedPlayer);
-
-    advancedPlayer.durationHandler = (d) => () {
-          _duration = d;
-        };
-
-    advancedPlayer.positionHandler = (p) => () {
-          _position = p;
-        };
-  }
-
-  void updateMyPositionMarker(loc.LocationData dataPos) async {
-    LatLng newPos = LatLng(dataPos.latitude, dataPos.longitude);
-    myMarker.value = Marker(
-      width: 30.0,
-      height: 30.0,
-      point: newPos,
-      builder: (ctx) => Container(
-        child: Icon(Icons.accessibility),
-      ),
-    );
-  }
 
   Future<void> getCurrentLocation() async {
     try {
@@ -153,6 +146,42 @@ class HomeController extends GetxController {
         print(e.code);
       }
     }
+  }
+
+  void callbackDispatcher() {
+    Workmanager.executeTask((task, inputData) async {
+      switch (task) {
+        case fetchBackground:
+          getCurrentLocation();
+          break;
+      }
+      return Future.value(true);
+    });
+  }
+
+  void initPlayer() {
+    advancedPlayer = new AudioPlayer();
+    audioCache = new AudioCache(fixedPlayer: advancedPlayer);
+
+    advancedPlayer.durationHandler = (d) => () {
+          _duration = d;
+        };
+
+    advancedPlayer.positionHandler = (p) => () {
+          _position = p;
+        };
+  }
+
+  void updateMyPositionMarker(loc.LocationData dataPos) async {
+    LatLng newPos = LatLng(dataPos.latitude, dataPos.longitude);
+    myMarker.value = Marker(
+      width: 30.0,
+      height: 30.0,
+      point: newPos,
+      builder: (ctx) => Container(
+        child: Icon(Icons.accessibility),
+      ),
+    );
   }
 
   void verifyDestination() {
