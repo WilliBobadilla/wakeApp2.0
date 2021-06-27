@@ -23,7 +23,7 @@ class HomeView extends GetView<HomeController> {
                       ? []
                       : [
                           controller.myMarker.value,
-                          //controller.destinationMarker.value,
+                          controller.destinationMarker.value,
                         ],
                 ),
                 onMapCreated: controller.onMapCreated,
@@ -37,7 +37,7 @@ class HomeView extends GetView<HomeController> {
                   // you can use the captured location here. when the user stops moving the map.
 
                   if (controller.markerDestinationEnable.value) {
-                    //call to update the marker
+                    //call to update the markerdestinationMarker
                     controller.updateDestinationPositionMarker(
                       controller.destinationPos,
                     );
