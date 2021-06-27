@@ -27,21 +27,21 @@ class HomeController extends GetxController {
   Rx<maps.Marker> myMarker = Rx<maps.Marker>();
   RxBool selectedBottom = RxBool(false);
   maps.GoogleMapController mapController;
-
+  Rx<maps.Marker> destinationMarker = Rx<maps.Marker>(
+    maps.Marker(
+      markerId: maps.MarkerId("Destination"),
+      position: maps.LatLng(0, 0),
+      infoWindow: maps.InfoWindow(title: "Destino"),
+    ),
+  );
+  RxBool markerDestinationEnable = RxBool(false);
   StreamSubscription _streamSubscription;
   loc.Location _tracker = loc.Location();
   LatLng actualPosition = LatLng(0, 0);
   double actualZoom = 15;
-  LatLng destinationPos = LatLng(0, 0);
+  //LatLng destinationPos = LatLng(0, 0);
   RxBool destinationMarkerEnable = RxBool(false);
-  Rx<Marker> destinationMarker = Rx<Marker>(Marker(
-    width: 30.0,
-    height: 30.0,
-    point: LatLng(0, 0),
-    builder: (ctx) => Container(
-      child: Icon(Icons.flag),
-    ),
-  ));
+  maps.LatLng destinationPos = maps.LatLng(0, 0);
 
   //this is for the alarm
   double radiusOfAlarm = 0.5; //in km
@@ -185,6 +185,13 @@ class HomeController extends GetxController {
     mapController = controller;
   }
 
+  void updateDestinationPositionMarker(maps.LatLng destinationPos) {
+    destinationMarker.value = maps.Marker(
+        markerId: maps.MarkerId("Destination"),
+        position: destinationPos,
+        infoWindow: maps.InfoWindow(title: "Destino"));
+  }
+
   void updateMyPositionMarker(LatLng dataPos) async {
     maps.LatLng latlng = maps.LatLng(dataPos.latitude, dataPos.longitude);
     myMarker.value = maps.Marker(
@@ -198,7 +205,7 @@ class HomeController extends GetxController {
   }
 
   void verifyDestination() {
-    var distance = calculateDistance(actualPosition, destinationPos);
+    var distance = calculateDistance(myMarker.value.position, destinationPos);
     print("DISTANCIA: " + distance.toString());
     if (distance < radiusOfAlarm && !popUpVisible.value) {
       popUpVisible.value = true;
@@ -234,7 +241,7 @@ class HomeController extends GetxController {
   ///Calculate distance between lat long
   ///input: lat1, lon1, lat2, lon2
   ///output: distance in km
-  double calculateDistance(LatLng location1, LatLng location2) {
+  double calculateDistance(maps.LatLng location1, maps.LatLng location2) {
     var lat1 = location1.latitude;
     var lon1 = location1.longitude;
     var lat2 = location2.latitude;
@@ -264,31 +271,17 @@ class HomeController extends GetxController {
     //mapController.moveAndRotate(actualPosition, actualZoom, degree);
   }
 
-  void updateMarkerDestination() {
-    print("actualizandoEnController: " + destinationPos.toString());
-    destinationMarker.value = Marker(
-      width: 30.0,
-      height: 30.0,
-      point: destinationPos,
-      builder: (ctx) => Container(
-        child: Icon(Icons.flag),
-      ),
-    );
-  }
-
   void enableMarkerDestination() {
     destinationMarkerEnable.toggle();
   }
 
   void cleanDestination() {
     popUpVisible.value = false; // to launch again the popUp on a new pos
-    destinationPos = LatLng(0, 0);
-    destinationMarker.value = Marker(
-      width: 30.0,
-      height: 30.0,
-      point: destinationPos,
-      builder: (ctx) => Container(
-        child: Icon(Icons.flag),
+    destinationMarker = Rx<maps.Marker>(
+      maps.Marker(
+        markerId: maps.MarkerId("Destination"),
+        position: maps.LatLng(0, 0),
+        infoWindow: maps.InfoWindow(title: "Destino"),
       ),
     );
   }

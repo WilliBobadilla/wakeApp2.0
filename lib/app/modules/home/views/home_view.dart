@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:get/get.dart';
 import 'package:wake_app_2_0/app/modules/widgets/bottom_sheet_widget.dart';
 
@@ -9,11 +9,9 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
-      //floatingActionButton: SideBarCustom(),
       body: Stack(
         children: <Widget>[
-          Obx(() => GoogleMap(
+          Obx(() => maps.GoogleMap(
                 zoomControlsEnabled: false,
                 zoomGesturesEnabled: true,
                 mapToolbarEnabled: true,
@@ -30,20 +28,20 @@ class HomeView extends GetView<HomeController> {
                 ),
                 onMapCreated: controller.onMapCreated,
                 onCameraMove: (position) {
-                  /*if (controller.markerDestinationEnable.value) {
+                  if (controller.markerDestinationEnable.value) {
                     controller.destinationPos = position.target;
                     print("moviendo" + position.target.toString());
-                  }*/
+                  }
                 },
                 onCameraIdle: () async {
                   // you can use the captured location here. when the user stops moving the map.
-                  controller
-                      .updateMarkerDestination(); //call to update the marker
-                  /*if (controller.markerDestinationEnable.value) {
-                    print("---------REDRAWING-------");
-                    controller
-                        .updateMarkerDestination(); //call to update the marker
-                  }*/
+
+                  if (controller.markerDestinationEnable.value) {
+                    //call to update the marker
+                    controller.updateDestinationPositionMarker(
+                      controller.destinationPos,
+                    );
+                  }
                 },
               )),
           Obx(
