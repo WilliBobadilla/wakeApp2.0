@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-//import 'package:google_maps_flutter/google_maps_flutter.dart';
-import "package:latlong/latlong.dart";
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
 import 'package:wake_app_2_0/app/modules/widgets/bottom_sheet_widget.dart';
 
@@ -15,38 +13,38 @@ class HomeView extends GetView<HomeController> {
       //floatingActionButton: SideBarCustom(),
       body: Stack(
         children: <Widget>[
-          Obx(() => FlutterMap(
-                mapController: controller.mapController,
-                options: MapOptions(
-                  onPositionChanged: (MapPosition position, bool isOk) {
-                    print("changing: " + position.center.toString());
-                    if (controller.destinationMarkerEnable.value) {
-                      controller.destinationPos = position.center;
-                      controller.destinationMarker.value = Marker(
-                        width: 30.0,
-                        height: 30.0,
-                        point: position.center,
-                        builder: (ctx) => Container(
-                          child: Icon(Icons.flag),
-                        ),
-                      );
-                    }
-                  },
-                  center: LatLng(-25.3389, -57.5210),
-                  zoom: 13.0,
+          Obx(() => GoogleMap(
+                zoomControlsEnabled: false,
+                zoomGesturesEnabled: true,
+                mapToolbarEnabled: true,
+                compassEnabled: false,
+                myLocationButtonEnabled: true,
+                initialCameraPosition: controller.initialLocation,
+                markers: Set.of(
+                  (controller.myMarker.value == null)
+                      ? []
+                      : [
+                          controller.myMarker.value,
+                          //controller.destinationMarker.value,
+                        ],
                 ),
-                layers: [
-                  TileLayerOptions(
-                      urlTemplate:
-                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      subdomains: ['a', 'b', 'c']),
-                  MarkerLayerOptions(
-                    markers: [
-                      controller.myMarker.value,
-                      controller.destinationMarker.value
-                    ],
-                  ),
-                ],
+                onMapCreated: controller.onMapCreated,
+                onCameraMove: (position) {
+                  /*if (controller.markerDestinationEnable.value) {
+                    controller.destinationPos = position.target;
+                    print("moviendo" + position.target.toString());
+                  }*/
+                },
+                onCameraIdle: () async {
+                  // you can use the captured location here. when the user stops moving the map.
+                  controller
+                      .updateMarkerDestination(); //call to update the marker
+                  /*if (controller.markerDestinationEnable.value) {
+                    print("---------REDRAWING-------");
+                    controller
+                        .updateMarkerDestination(); //call to update the marker
+                  }*/
+                },
               )),
           Obx(
             () => Visibility(

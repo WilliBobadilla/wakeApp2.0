@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:isolate';
 import 'dart:math';
 import 'dart:ui';
-
+import 'package:google_maps_flutter/google_maps_flutter.dart' as maps;
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
@@ -20,22 +20,16 @@ import 'package:flutter_background_geolocation/flutter_background_geolocation.da
 
 class HomeController extends GetxController {
   //to execute in background
-
+  maps.CameraPosition initialLocation = maps.CameraPosition(
+    target: maps.LatLng(-27.0, -57.0),
+    zoom: 15,
+  );
+  Rx<maps.Marker> myMarker = Rx<maps.Marker>();
   RxBool selectedBottom = RxBool(false);
-  Rx<Marker> myMarker = Rx<Marker>(Marker(
-    width: 30.0,
-    height: 30.0,
-    point: LatLng(0, 0),
-    builder: (ctx) => Container(
-      child: Icon(
-        Icons.accessibility,
-        color: Colors.green,
-      ),
-    ),
-  ));
+  maps.GoogleMapController mapController;
+
   StreamSubscription _streamSubscription;
   loc.Location _tracker = loc.Location();
-  MapController mapController = MapController();
   LatLng actualPosition = LatLng(0, 0);
   double actualZoom = 15;
   LatLng destinationPos = LatLng(0, 0);
@@ -64,40 +58,6 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     //initialize the workmanager
-    ////
-    // 2.  Configure the plugin
-    //
-    bg.BackgroundGeolocation.ready(bg.Config(
-            desiredAccuracy: bg.Config.DESIRED_ACCURACY_HIGH,
-            distanceFilter: 10.0,
-            stopOnTerminate: false,
-            startOnBoot: true,
-            debug: true,
-            logLevel: bg.Config.LOG_LEVEL_VERBOSE))
-        .then((bg.State state) {
-      if (!state.enabled) {
-        ////
-        // 3.  Start the plugin.
-        //
-        bg.BackgroundGeolocation.start();
-      }
-    });
-
-    // Fired whenever a location is recorded
-    bg.BackgroundGeolocation.onLocation((bg.Location location) {
-      print('[location] - $location');
-      var newLocation = LatLng(
-        location.coords.latitude,
-        location.coords.longitude,
-      );
-      actualPosition = newLocation;
-      updateMyPositionMarker(newLocation);
-      centerWithBound();
-      verifyDestination();
-
-      //here we have to call onLocationBackground method but
-    });
-
     //request for permision
     PermissionStatus permission =
         await LocationPermissions().checkPermissionStatus();
@@ -125,11 +85,33 @@ class HomeController extends GetxController {
 
     initPlayer();
 
+    // Fired whenever the plugin changes motion-state (stationary->moving and vice-versa)
+    /* bg.BackgroundGeolocation.onMotionChange((bg.Location location) {
+      print('[motionchange] - $location');
+    });*/
+    //bg.BackgroundGeolocation.on
+    // Fired whenever a location is recorded
+    /*bg.BackgroundGeolocation.onLocation((bg.Location location) {
+      print('[location] - $location');
+      var newLocation = LatLng(
+        location.coords.latitude,
+        location.coords.longitude,
+      );
+      actualPosition = newLocation;
+      updateMyPositionMarker(newLocation);
+      centerWithBound();
+      verifyDestination();
+      //here we have to call onLocationBackground method but
+    });*/
+
     super.onInit();
   }
 
   @override
   void onReady() {
+    Timer.periodic(Duration(seconds: 10), (timer) {
+      seeLocation();
+    });
     super.onReady();
   }
 
@@ -137,6 +119,15 @@ class HomeController extends GetxController {
   void onClose() {}
 
 //-------------------background task------------------
+  Future<void> seeLocation() async {
+    print("----------------------loking for location-----------------------");
+    loc.LocationData location = await _tracker.getLocation();
+    var newLocation = LatLng(location.latitude, location.longitude);
+    actualPosition = LatLng(location.latitude, location.longitude);
+    updateMyPositionMarker(newLocation);
+    centerWithBound();
+    verifyDestination();
+  }
 
 /*------normal tasks-----*/
   Future<void> getCurrentLocation() async {
@@ -190,15 +181,19 @@ class HomeController extends GetxController {
         };
   }
 
+  void onMapCreated(maps.GoogleMapController controller) {
+    mapController = controller;
+  }
+
   void updateMyPositionMarker(LatLng dataPos) async {
-    LatLng newPos = LatLng(dataPos.latitude, dataPos.longitude);
-    myMarker.value = Marker(
-      width: 30.0,
-      height: 30.0,
-      point: newPos,
-      builder: (ctx) => Container(
-        child: Icon(Icons.accessibility),
-      ),
+    maps.LatLng latlng = maps.LatLng(dataPos.latitude, dataPos.longitude);
+    myMarker.value = maps.Marker(
+      markerId: maps.MarkerId("MyMarker"),
+      position: latlng,
+      draggable: false,
+      zIndex: 2,
+      anchor: Offset(0.5, 0.5),
+      infoWindow: maps.InfoWindow(title: "Posicion Actual"),
     );
   }
 
@@ -255,7 +250,7 @@ class HomeController extends GetxController {
   void centerView(LatLng center) {
     //LatLng center = LatLng(locationData.latitude, locationData.longitude);
     double degree = 0;
-    mapController.moveAndRotate(center, actualZoom, degree);
+    //mapController.moveAndRotate(center, actualZoom, degree);
   }
 
   ///input: String mode, it can be in, out
@@ -266,7 +261,7 @@ class HomeController extends GetxController {
       actualZoom++;
     }
     double degree = 0;
-    mapController.moveAndRotate(actualPosition, actualZoom, degree);
+    //mapController.moveAndRotate(actualPosition, actualZoom, degree);
   }
 
   void updateMarkerDestination() {
@@ -305,6 +300,6 @@ class HomeController extends GetxController {
     var bottom = min(actualPosition.longitude, destinationPos.longitude);
 
     var bounds = LatLngBounds(LatLng(left, bottom), LatLng(right, top));
-    mapController.fitBounds(bounds);
+    //mapController.fitBounds(bounds);
   }
 }
