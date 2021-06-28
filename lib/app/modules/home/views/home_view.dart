@@ -61,9 +61,9 @@ class HomeView extends GetView<HomeController> {
             right: 20,
             child: FloatingActionButton(
               heroTag: 1,
-              child: Center(child: Icon(Icons.add)),
+              child: Center(child: Icon(Icons.gps_fixed)),
               onPressed: () {
-                controller.zoom(mode: "in");
+                controller.centerView(controller.myMarker.value.position);
               },
             ),
           ),

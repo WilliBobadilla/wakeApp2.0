@@ -84,26 +84,6 @@ class HomeController extends GetxController {
     }
 
     initPlayer();
-
-    // Fired whenever the plugin changes motion-state (stationary->moving and vice-versa)
-    /* bg.BackgroundGeolocation.onMotionChange((bg.Location location) {
-      print('[motionchange] - $location');
-    });*/
-    //bg.BackgroundGeolocation.on
-    // Fired whenever a location is recorded
-    /*bg.BackgroundGeolocation.onLocation((bg.Location location) {
-      print('[location] - $location');
-      var newLocation = LatLng(
-        location.coords.latitude,
-        location.coords.longitude,
-      );
-      actualPosition = newLocation;
-      updateMyPositionMarker(newLocation);
-      centerWithBound();
-      verifyDestination();
-      //here we have to call onLocationBackground method but
-    });*/
-
     super.onInit();
   }
 
@@ -146,14 +126,15 @@ class HomeController extends GetxController {
         if (mapController != null &&
             !destinationMarkerEnable.value &&
             location != null &&
-            destinationPos == LatLng(0, 0)) {
+            destinationPos == maps.LatLng(0, 0)) {
           //_centerView(location);
           print("actualizando destination " + destinationPos.toString());
-          centerView(actualPosition);
+          //centerView(actualPosition);
           updateMyPositionMarker(actualPosition);
-        } else if (!destinationMarkerEnable.value) {
+        } else if (!destinationMarkerEnable.value &&
+            destinationPos != maps.LatLng(0, 0)) {
           //navigation mode activated
-          print("With bounds");
+          print("DESTINATIOM" + destinationPos.toString());
           updateMyPositionMarker(actualPosition);
           centerWithBound();
           verifyDestination();
@@ -254,10 +235,35 @@ class HomeController extends GetxController {
     return 12742 * asin(sqrt(a));
   }
 
-  void centerView(LatLng center) {
-    //LatLng center = LatLng(locationData.latitude, locationData.longitude);
-    double degree = 0;
-    //mapController.moveAndRotate(center, actualZoom, degree);
+  centerView(maps.LatLng dataActualPos) async {
+//in case of destination marker not setted
+    print("el valor del destino es");
+    print(destinationPos.toJson());
+    if (destinationPos == maps.LatLng(0, 0)) {
+      mapController.animateCamera(
+        maps.CameraUpdate.newCameraPosition(
+          maps.CameraPosition(
+            bearing: 0,
+            target: dataActualPos,
+            tilt: 0,
+            zoom: 15.00,
+          ),
+        ),
+      );
+    } else {
+      await mapController.getVisibleRegion(); //wait to load the map
+      //let's draw a rectangle for our centerView
+      var left = min(dataActualPos.latitude, destinationPos.latitude);
+      var right = max(dataActualPos.latitude, destinationPos.latitude);
+      var top = max(dataActualPos.longitude, destinationPos.longitude);
+      var bottom = min(dataActualPos.longitude, destinationPos.longitude);
+
+      var bounds = maps.LatLngBounds(
+          southwest: maps.LatLng(left, bottom),
+          northeast: maps.LatLng(right, top));
+      var cameraUpdate = maps.CameraUpdate.newLatLngBounds(bounds, 80);
+      mapController.animateCamera(cameraUpdate);
+    }
   }
 
   ///input: String mode, it can be in, out
@@ -277,7 +283,8 @@ class HomeController extends GetxController {
   }
 
   void cleanDestination() {
-    popUpVisible.value = false; // to launch again the popUp on a new pos
+    //popUpVisible.value = false; // to launch again the popUp on a new pos
+    destinationPos = maps.LatLng(0, 0);
     destinationMarker = Rx<maps.Marker>(
       maps.Marker(
         markerId: maps.MarkerId("Destination"),
