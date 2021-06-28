@@ -272,7 +272,8 @@ class HomeController extends GetxController {
   }
 
   void enableMarkerDestination() {
-    destinationMarkerEnable.toggle();
+    markerDestinationEnable.toggle();
+    //destinationMarkerEnable.toggle();
   }
 
   void cleanDestination() {

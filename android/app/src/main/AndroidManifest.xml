@@ -21,7 +21,7 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="wake_app_2_0"
         android:icon="@mipmap/ic_launcher">
-   
+     <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyADuBDM7JfJ2GdVRheYgCDFNNCJVKzX0rk"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

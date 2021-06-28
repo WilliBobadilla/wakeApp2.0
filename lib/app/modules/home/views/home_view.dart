@@ -46,7 +46,7 @@ class HomeView extends GetView<HomeController> {
               )),
           Obx(
             () => Visibility(
-              visible: controller.destinationMarkerEnable.value,
+              visible: controller.markerDestinationEnable.value,
               child: Align(
                 alignment: Alignment.center,
                 child: Icon(
